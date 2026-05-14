@@ -1,13 +1,15 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "app.compile"
-    compileSdk = 35
-    buildToolsVersion = "35.0.0"
-    ndkVersion = "27.1.12297006"
+    compileSdk = 37
+    buildToolsVersion = "36.1.0"
     
     packaging {
         jniLibs {
@@ -19,31 +21,16 @@ android {
     }
     
     defaultConfig {
-        applicationId = "adb.shell.shizuku"
+        applicationId = "com.kitty.shizuku"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 15
-        versionName = "v0.0.17"
+        targetSdk = 37
+        versionCode = 33
+        versionName = "0.7.0-20260515-xiaomi-version"
         
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         
         vectorDrawables { 
             useSupportLibrary = true
-        }
-        
-        externalNativeBuild {
-            cmake {
-                abiFilters("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
-                
-            }
-        }
-    }
-    
-    externalNativeBuild {
-        cmake {
-            // CMakeLists.txt 
-            path("src/main/cpp/CMakeLists.txt")
-            
         }
     }
     
@@ -87,10 +74,6 @@ android {
         buildConfig = true
     }
     
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-    
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
@@ -98,6 +81,9 @@ android {
     
     lint {
         htmlReport = true
+        xmlReport = true
+        textReport = true
+        sarifReport = true
         // disable("ProtectedPermissions")
     }
 
@@ -109,35 +95,28 @@ android {
     
 }
 
-tasks
-    .withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>()
+tasks.withType<KotlinJvmCompile>()
     .configureEach {
         compilerOptions
             .jvmTarget
             .set(
-                org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+                JvmTarget.JVM_21
             )
     }
 
 dependencies {
-    val lifecycle_version = "2.8.7"
-    val shizuku_version = "13.1.5"
-    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("com.google.code.gson:gson:2.11.0")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.core:core-ktx:1.16.0")
-    implementation("androidx.activity:activity-ktx:1.10.1")
-    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm")
-    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-    implementation("dev.rikka.shizuku:api:$shizuku_version")
-    implementation("dev.rikka.shizuku:provider:$shizuku_version")
-    implementation(fileTree("configs") { include("*.jar") })
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    implementation("androidx.lifecycle:lifecycle-process:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
-    implementation("androidx.annotation:annotation:1.9.1")
-    implementation("androidx.annotation:annotation-experimental:1.4.1")
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.shizuku)
+    runtimeOnly(libs.bundles.coroutines.runtime)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.google.gson)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.material)
+    implementation(libs.androidx.annotation)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    implementation(libs.mt.dataFilesProvider)
 }

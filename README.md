@@ -14,11 +14,7 @@ ShizukuUserService 是一个依赖于 Shizuku 的应用程序
 
 ## 开放源代码
 
-ShizukuUserService的源代码完全开放
-
-## IDE环境配置
-
-在编译ShizukuUserService时需要配置Kotlin DSL环境、JDK21、AIDE、Android SDK35、NDK 27.1.12297006
+ShizukuUserService的源代码完全开放，本项目不提供yml构建
 
 ## 贡献
 
@@ -27,10 +23,6 @@ ShizukuUserService的源代码完全开放
 ## 个人开发者
 
 by 小喵喵[小猫猫]
-
-## 软件包更新
-
-开发者将会不定期发布Release版本的软件包，如果您需要使用包含最新改动的apk变体，那么还请您自行构建apk变体
 
 ## Key私钥
 

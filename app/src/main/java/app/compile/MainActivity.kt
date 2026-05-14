@@ -1,7 +1,5 @@
 package app.compile
-/*
-   源代码开源是为了让您观摩我的诗山代码，而不是教您如何使用 Shizuku-13.1.5 版本的依赖
-*/
+
 import android.os.Bundle
 import android.os.Build
 import android.os.IBinder
@@ -39,8 +37,11 @@ import android.content.Context
 import android.content.res.Resources
 import android.content.pm.PackageManager
 
+import android.graphics.Color
 import android.widget.Toast
 
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.SystemBarStyle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import app.compile.databinding.ActivityMainBinding
@@ -71,6 +72,7 @@ import java.text.SimpleDateFormat
 
 import com.google.gson.Gson
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.appcompat.widget.Toolbar
 
 import kotlinx.coroutines.CoroutineScope
@@ -79,25 +81,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.TimeoutCancellationException
-/* 
-   如果您需要使用自定义R类或其他库中的R类，还请添加import
-   示例：import app.compile.R
-   如果您需要使用多个库中的R类，还请在代码中使用完整路径
-   示例：app.compile.R.id.android
-   项目使用的是viewbinding，因此您可以直接使用binding
-   示例：binding.android.setOnClickListener
-   示例：binding.android.text
-   或者完整路径binding
-   示例：app.compile.binding.android.setOnClickListener
-   示例：app.compile.binding.android.text
-*/
+
 @Keep
 class MainActivity : AppCompatActivity(), DefaultLifecycleObserver {
     companion object {
         private const val PERMISSION_CODE = 10001
-        init {
-           System.loadLibrary("native-lib")
-        }
     }
 
     private var shizukuServiceState = false
@@ -105,6 +93,12 @@ class MainActivity : AppCompatActivity(), DefaultLifecycleObserver {
     private var iUserService: IUserService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge(
+           // 状态栏：透明背景，图标颜色随系统主题自适应
+            statusBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
+            // 导航栏：透明背景，手势线/图标颜色随系统主题自适应
+            navigationBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
+        )
         super<AppCompatActivity>.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -328,19 +322,19 @@ class MainActivity : AppCompatActivity(), DefaultLifecycleObserver {
             iUserService?.execLine(command)
         }
     } */
-    external fun getSystemBinPath(): String
-    external fun getPrivateBinPath(): String
-    external fun getKsuBinPath(): String
-    external fun getVendorBinPath(): String
-    external fun getSystemsBinPath(): String
+    private var systemBin = "/system/bin/"
+    private var sysextBin = "/system_ext/bin/"
+    private var vendorBin = "/vendor/bin/"
+    private var ksuBin = "/data/adb/ksu/bin/"
+    private var privateBin = "/sdcard/Android/data/com.kitty.shizuku/files/shizuku/"
     
      @Throws(RemoteException::class)
     private fun exec(command: String): String? {
-          val systemBinPath = getSystemBinPath()
-         val privateBinPath = getPrivateBinPath()
-          val ksuBinPath = getKsuBinPath()
-         val vendorBinPath = getVendorBinPath()
-          val sysextBinPath = getSystemsBinPath()
+          val systemBinPath = systemBin
+         val privateBinPath = privateBin
+          val ksuBinPath = ksuBin
+         val vendorBinPath = vendorBin
+          val sysextBinPath = sysextBin
 
          // 匹配命令和参数
         val pattern = Pattern.compile("\"([^\"]*)\"|(\\S+)")
@@ -498,12 +492,11 @@ class MainActivity : AppCompatActivity(), DefaultLifecycleObserver {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
            return when (item.itemId) {
               R.id.action_main_1 -> {
-                 Toast.makeText(this, "喵~", Toast.LENGTH_SHORT).show()
-                 openLink("https://github.com/MakeKittyC/ShizukuUesrService")
-               true
+                  GitHubdialogs1()
+                true
            }
               R.id.action_main_2 -> {
-                  Toast.makeText(this, "已跑路，望周知……", Toast.LENGTH_SHORT).show()
+                  GitHubdialogs2()
                 true
            }
               R.id.action_main_3 -> {
@@ -566,5 +559,42 @@ class MainActivity : AppCompatActivity(), DefaultLifecycleObserver {
             intent.setPackage(null)
             startActivity(intent)
         }
+    }
+    
+    private fun GitHubdialogs1() {
+        val taskTitle = "温馨提示"
+        val taskMessage = "即将跳转到浏览器中打开项目所在的GitHub地址"
+    
+        val builder = MaterialAlertDialogBuilder(this)
+            .setTitle(taskTitle)
+            .setMessage(taskMessage)
+            .setPositiveButton("跳转到项目地址") { _, _ ->
+                Toast.makeText(this, "喵~", Toast.LENGTH_SHORT).show()
+                 openLink("https://github.com/Com-kt/ShizukuUesrService")
+        }
+        val dialog = builder.create()
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
+    }
+    
+    private fun GitHubdialogs2() {
+        val taskTitle = "ShiZuKu下载以及安装"
+        val taskMessage = "如果您想要使用此软件，则必须要安装Shizuku，并激活Shizuku，本软件将为您跳转到Shizuku项目所在的GitHub地址，Shizuku安装/激活教程，Shizuku项目已提供"
+    
+        val builder = MaterialAlertDialogBuilder(this)
+            .setTitle(taskTitle)
+            .setMessage(taskMessage)
+            .setPositiveButton("跳转到ShiZuKu") { _, _ ->
+                Toast.makeText(this, "正在为您跳转到Shizuku项目", Toast.LENGTH_SHORT).show()
+                 openLink("https://github.com/RikkaApps/Shizuku")
+        }
+            .setNegativeButton("关闭对话框") { _, _ ->
+                Toast.makeText(this, "好的呢，猫猫知道啦！", Toast.LENGTH_SHORT).show()
+           }
+        val dialog = builder.create()
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
 }

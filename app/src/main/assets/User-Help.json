@@ -1,10 +1,17 @@
 {
-    "title": "Help/帮助(还请插入Rikka的小穴穴.jpg)",
+    "title": "Help/帮助",
     "content": [
-        "·ShizukuUesrService现已开源",
-        "·GitHub地址：https://github.com/MakeKittyC/ShizukuUesrService",
-        "·您可以自行构建apk来使用，也可以从GitHub下载apk来使用，或者其他来源也可以，但前提是您所获取的apk变体来源均为安全，否则不要轻易相信其他来源不明的apk变体",
-        "·Telegram频道：https://t.me/LookCuteKitty",
-        "·开发者：小猫猫，小鸟长度7cm(小是小了点)，喜欢看涩涩内容，一般都会男女区别对待，对女孩子要好一些，男孩子可以置之不理，希望我的女粉可以让我插入，很穷没钱希望粉粉们可以给我捐点钱，性格温顺，是个小奶狗，因为逆天，所以不可调教，还请谅解！"
+        "•UesrService",
+        "•Shizuku特权有多大就能创建多大的进程，一般是uid:2000或者uid:0",
+        "•无混淆代码，软件包被修改率大大提高，多注意点",
+        "•开发者拒绝透露任何信息",
+        "•遇到bug时，无需反馈，该软件不会输出任何日志",
+        "•部分指令可能存在安全隐患，还请慎用",
+        "•指令集使用路径：",
+        "/system/bin/",
+        "/sdcard/Android/data/com.kitty.shizuku/files/shizuku/",
+        "/data/adb/ksu/bin/",
+        "/vendor/bin/",
+        "/system_ext/bin/"
     ]
 }

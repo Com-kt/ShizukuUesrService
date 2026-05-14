@@ -4,7 +4,7 @@
     <style name="Base.Activity.AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- item. -->
         <item name="colorPrimaryDark">@color/image_theme</item>
-         <item name="colorPrimary">@color/image_theme</item>
+        <item name="colorPrimary">@color/image_theme</item>
     </style>
        <style name="Theme.Shizuku" parent="Base.Activity.AppTheme" />
   

@@ -11,12 +11,17 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
+    gradlePluginPortal()
     maven("https://jitpack.io")
     maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap")
     maven("https://maven.scijava.org/content/repositories/public/")
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    maven("https://s01.oss.sonatype.org/content/groups/public/")
+    maven("https://plugins.gradle.org/m2/")
+    maven("https://central.sonatype.com/repository/maven-snapshots/")
   }
 }
 
-rootProject.name = "main"
+rootProject.name = "ShizukuUesrService"
 
 include(":app")

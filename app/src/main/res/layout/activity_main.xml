@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@color/layout_backgroundTint"
-    android:background="@color/layout_background"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -23,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -33,6 +31,7 @@
         app:layout_constraintRight_toRightOf="parent">
         <TextView
             android:hint="@string/shizuku"
+            android:textColorHint="@color/text_hint_Color"
             android:id="@+id/execute_result"
             android:textColor="@color/image_text"
             android:layout_margin="10dp"
@@ -40,7 +39,7 @@
             android:longClickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:gravity="center_vertical"

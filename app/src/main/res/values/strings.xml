@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ShizukuUserSerivce</string>
     <string name="apps_name">ShizukuUser</string>
-    <string name="shizuku">·Rikka 我好想超你🥰\n·Rikka 我想和你暧昧一下🥰\n·Rikka 我想和你睡一起🥰\n·Rikka 就让我草吧，我的大🥰\n·Rikka 我想睡你🥰\n\n·bin使用顺序：优先使用/system/bin/，然后使用/sdcard/Android/data/adb.shell.shizuku/files/shizuku/，然后使用/data/adb/ksu/bin/，然后使用/vendor/bin/, 最后使用/system_ext/bin/</string>
-    <string name="action_main_1">Rikka</string>
-    <string name="action_main_2">开发者选项</string>
+    <string name="shizuku">虽然以特权运行，但是仍有限制，实在不行的话，也可以转向终端工具，不一定要依赖此软件</string>
+    <string name="action_main_1">GitHub</string>
+    <string name="action_main_2">ShiZuKu</string>
     <string name="action_main_3">Help/帮助</string>
 </resources>

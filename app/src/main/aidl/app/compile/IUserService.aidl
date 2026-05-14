@@ -1,7 +1,5 @@
 package app.compile;
-/*
-   源代码开源是为了让您观摩我的诗山代码，而不是教您如何使用 Shizuku-13.1.5 版本的依赖
-*/
+
 interface IUserService {
 
     /**
